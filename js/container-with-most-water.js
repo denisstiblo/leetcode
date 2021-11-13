@@ -1,0 +1,78 @@
+/*
+1. Container With Most Water
+Medium
+
+12696
+
+812
+
+Add to List
+
+Share
+Given n non-negative integers a1, a2, ..., an , where each represents a point at coordinate (i, ai). n vertical lines are drawn such that the two endpoints of the line i is at (i, ai) and (i, 0). Find two lines, which, together with the x-axis forms a container, such that the container contains the most water.
+
+Notice that you may not slant the container.
+
+ 
+
+Example 1:
+
+
+Input: height = [1,8,6,2,5,4,8,3,7]
+Output: 49
+Explanation: The above vertical lines are represented by array [1,8,6,2,5,4,8,3,7]. In this case, the max area of water (blue section) the container can contain is 49.
+Example 2:
+
+Input: height = [1,1]
+Output: 1
+Example 3:
+
+Input: height = [4,3,2,1,4]
+Output: 16
+Example 4:
+
+Input: height = [1,2,1]
+Output: 2
+
+
+Constraints:
+
+n == height.length
+2 <= n <= 105
+0 <= height[i] <= 104
+ */
+/**
+ *
+ * @param {number[]} height
+ * @return {number}
+ */
+var maxArea = function(height) {
+    let numberOfLines = height.length;
+    let maxSquare = 0;
+
+    getSquare = function (i,j, heightI, heightJ){
+        let heightMin;
+        if (heightI < heightJ) {
+            heightMin = heightI;
+        } else {
+            heightMin = heightJ;
+        }
+
+        return heightMin * (j-i);
+    }
+
+    for (i = 0; i < numberOfLines; i++)     {
+        for (j = i + 1; j < numberOfLines; j++) {
+            if (height[j] !== undefined) {
+                let currentSquare = getSquare(i, j, height[i], height[j]);
+                if (currentSquare > maxSquare) {
+                    maxSquare = currentSquare;
+                }
+            }
+        }
+
+    }
+
+    return maxSquare;
+
+};
